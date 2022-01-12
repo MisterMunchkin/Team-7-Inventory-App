@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Team-7-Inventory-App';
+  isMenuOpen: boolean = false;
+
+  onSidenavClick(): void {
+    this.isMenuOpen = false;
+  }
 }

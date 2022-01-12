@@ -31,7 +31,6 @@ export class InventoryComponent implements AfterViewInit {
       }
     ] as Array<Inventory>
 
-    console.log(tempPopList);
     this.dataSource = new MatTableDataSource(tempPopList);
     this.table.dataSource = this.dataSource;
   }

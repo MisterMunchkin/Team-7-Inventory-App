@@ -1,8 +1,12 @@
+import { Inventory } from './../shared/models/inventory';
+import { ConfirmationDialogModel, ConfirmationDialogComponent } from './../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource} from '@angular/material/table';
-import { Inventory } from '../shared/models/inventory';
 import { InventoryFormDialogComponent } from './inventory-form-dialog/inventory-form-dialog.component';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-inventory',
@@ -11,28 +15,37 @@ import { InventoryFormDialogComponent } from './inventory-form-dialog/inventory-
 })
 export class InventoryComponent implements AfterViewInit {
   @ViewChild(MatTable) table!: MatTable<Inventory>;
+  $dataSource: Observable<Inventory[]>
   dataSource!: MatTableDataSource<Inventory>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['name', 'quantity', 'metric', 'pricePerItem', 'dateReceived', 'dateOpened', 'total', 'actions'];
 
   constructor(
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private firestore: AngularFirestore
+  ) {
+    var ref: AngularFirestoreCollection<Inventory> = this.firestore.collection<Inventory>('inventory');
+    this.$dataSource = ref.valueChanges({idField: 'id'});
+  }
 
   ngAfterViewInit(): void {
-    var tempPopList = [
-      {
-        name: 'Salt',
-        quantity: 5,
-        metric: 'kg',
-        pricePerQuantity: 30,
-        dateReceived: new Date('1-1-2022')
-      }
-    ] as Array<Inventory>
+    this.$dataSource.subscribe(data => {
+      this.dataSource = new MatTableDataSource(data);
+      this.table.dataSource = this.dataSource;
+    });
 
-    this.dataSource = new MatTableDataSource(tempPopList);
-    this.table.dataSource = this.dataSource;
+    // var tempPopList = [
+    //   {
+    //     name: 'Salt',
+    //     quantity: 5,
+    //     metric: 'l',
+    //     pricePerQuantity: 30,
+    //     dateReceived: new Date('1-1-2022')
+    //   }
+    // ] as Array<Inventory>
+    //this.dataSource = new MatTableDataSource(tempPopList);
+    //this.table.dataSource = this.dataSource;
   }
 
   addDialog() {
@@ -42,8 +55,27 @@ export class InventoryComponent implements AfterViewInit {
     .subscribe((result: Inventory) => {
       if (result) {
         //we add to database
+        this.firestore.collection('inventory').doc().set(result);
+
       }
     })
+  }
+
+  deleteDialog(data: Inventory) {
+    const message = 'Deleting an inventory item will delete the whole thing not just the quantity.';
+    const dialogData = new ConfirmationDialogModel("Are you sure you want to delete this?", message);
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxHeight: '600px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed()
+    .subscribe(result => {
+      if (result) {
+        this.firestore.collection('inventory').doc(data?.id).delete();
+      }
+    });
   }
 
   editDialog(data: Inventory) {
@@ -56,8 +88,12 @@ export class InventoryComponent implements AfterViewInit {
     .subscribe((result: Inventory) => {
       if (result) {
         //we edit to database
+        this.firestore.collection('inventory').doc(result?.id).set(result);
       }
     })
   }
 
+  getTotal(data: Inventory) {
+    return Number(data.quantity * data.pricePerQuantity).toFixed(2); //round to two decimals
+  }
 }

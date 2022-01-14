@@ -1,1 +1,63 @@
-<p>inventory-form-dialog works!</p>
+<div>
+  <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
+    <h1 mat-dialog-title>Inventory Information</h1>
+    <div mat-dialog-content fxLayout="column">
+      <div>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput id="name" formControlName="name" type="text">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Quantity</mat-label>
+          <input matInput id="quantity" formControlName="quantity" type="number">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Metric</mat-label>
+          <mat-select formControlName="metric">
+            <mat-option matInput *ngFor="let metric of metrics" [value]="metric">
+              {{metric}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Price Per Quantity</mat-label>
+          <input matInput id="pricePerQuantity" formControlName="pricePerQuantity" type="number">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Date Received</mat-label>
+          <input matInput id="dateReceived" [matDatepicker]="dateReceived" formControlName="dateReceived">
+
+          <mat-datepicker-toggle matSuffix [for]="dateReceived"></mat-datepicker-toggle>
+          <mat-datepicker #dateReceived></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Date Opened</mat-label>
+          <input matInput id="dateOpened" [matDatepicker]="dateOpened" formControlName="dateOpened">
+
+          <mat-datepicker-toggle matSuffix [for]="dateOpened"></mat-datepicker-toggle>
+          <mat-datepicker #dateOpened></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div mat-dialog-actions align="end">
+      <button color="primary" mat-raised-button type="submit">Save</button>
+      <button mat-raised-button [mat-dialog-close] type="button">Close</button>
+    </div>
+  </form>
+</div>

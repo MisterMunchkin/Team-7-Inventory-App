@@ -1,5 +1,5 @@
 <div class="inline table-header" style="width:100%; overflow:auto;">
-  <h1>Inventory</h1>
+  <h1 matTooltip="Waddup broskis lets get this bread 🔥🔥🔥">Inventory</h1>
   <!-- <mat-form-field>
     <mat-label>Filter</mat-label>
     <input matInput #input>
@@ -56,8 +56,10 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let row">
-        <button class="inline" mat-raised-button color="accent" (click)="editDialog(row)">Edit</button>
-        <button class="inline" mat-raised-button color="red" (click)="deleteDialog(row)">Delete</button>
+        <button class="inline" mat-icon-button matTooltip="Clicking this will +1 the quantity for this dope ass item 🍕" (click)="addQuantity(row)"><mat-icon>add</mat-icon></button>
+        <button class="inline" mat-icon-button matTooltip="Clicking this will -1 the quantity for this boio 🐶" (click)="removeQuantity(row)"><mat-icon>remove</mat-icon></button>
+        <button class="inline" mat-icon-button (click)="editDialog(row)"><mat-icon>edit</mat-icon></button>
+        <button class="inline" mat-icon-button color="warn" (click)="deleteDialog(row)"><mat-icon>delete</mat-icon></button>
       </td>
     </ng-container>
 

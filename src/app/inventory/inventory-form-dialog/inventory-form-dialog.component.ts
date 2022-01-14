@@ -29,7 +29,6 @@ export class InventoryFormDialogComponent implements OnInit {
   @Inject(MAT_DIALOG_DATA) public data: Inventory) {
     if (data) {
       //edit inventory
-      console.log(data);
       this.inventoryData = JSON.parse(JSON.stringify(data));
       this.isEdit = true;
     } else {
@@ -42,9 +41,9 @@ export class InventoryFormDialogComponent implements OnInit {
   ngOnInit(): void {
     this.inventoryForm = new FormGroup({
       name: new FormControl(this.inventoryData.name, [Validators.required]),
-      quantity: new FormControl(this.inventoryData.quantity, [Validators.required]),
+      quantity: new FormControl(this.inventoryData.quantity, [Validators.required, Validators.min(0)]),
       metric: new FormControl(this.inventoryData.metric, [Validators.required]),
-      pricePerQuantity: new FormControl(this.inventoryData.pricePerQuantity, [Validators.required]),
+      pricePerQuantity: new FormControl(this.inventoryData.pricePerQuantity, [Validators.required, Validators.min(0)]),
       dateReceived: new FormControl(new Date(this.inventoryData.dateReceived), [Validators.required]),
       dateOpened: new FormControl((this.inventoryData.dateOpened) ? new Date(this.inventoryData.dateOpened) : null)
     });

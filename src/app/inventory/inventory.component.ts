@@ -14,6 +14,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./inventory.component.scss']
 })
 export class InventoryComponent implements AfterViewInit {
+  collectionId: string = 'inventory';
   @ViewChild(MatTable) table!: MatTable<Inventory>;
   $dataSource: Observable<Inventory[]>
   dataSource!: MatTableDataSource<Inventory>;
@@ -55,10 +56,15 @@ export class InventoryComponent implements AfterViewInit {
     .subscribe((result: Inventory) => {
       if (result) {
         //we add to database
-        this.firestore.collection('inventory').doc().set(result);
+        this.firestore.collection(this.collectionId).doc().set(result);
 
       }
     })
+  }
+
+  addQuantity(data: Inventory) {
+    data.quantity = data.quantity + 1;
+    this.firestore.collection(this.collectionId).doc(data?.id).set(data);
   }
 
   deleteDialog(data: Inventory) {
@@ -73,7 +79,7 @@ export class InventoryComponent implements AfterViewInit {
     dialogRef.afterClosed()
     .subscribe(result => {
       if (result) {
-        this.firestore.collection('inventory').doc(data?.id).delete();
+        this.firestore.collection(this.collectionId).doc(data?.id).delete();
       }
     });
   }
@@ -88,12 +94,19 @@ export class InventoryComponent implements AfterViewInit {
     .subscribe((result: Inventory) => {
       if (result) {
         //we edit to database
-        this.firestore.collection('inventory').doc(result?.id).set(result);
+        this.firestore.collection(this.collectionId).doc(result?.id).set(result);
       }
     })
   }
 
   getTotal(data: Inventory) {
     return Number(data.quantity * data.pricePerQuantity).toFixed(2); //round to two decimals
+  }
+
+  removeQuantity(data: Inventory) {
+    if (data.quantity > 0) {
+      data.quantity = data.quantity - 1;
+      this.firestore.collection(this.collectionId).doc(data?.id).set(data);
+    }
   }
 }

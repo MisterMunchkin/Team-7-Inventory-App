@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist",
+    "public": "dist/team-7-inventory-app",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -12,8 +12,8 @@
     ],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
+          "source": "**",
+          "destination": "/index.html"
       }
     ]
   },
@@ -29,6 +29,12 @@
     },
     "ui": {
       "enabled": true
+    },
+    "hosting": {
+      "port": 5000
+    },
+    "storage": {
+      "port": 9199
     }
   }
 }

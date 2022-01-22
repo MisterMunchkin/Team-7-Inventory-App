@@ -1,0 +1,45 @@
+<div>
+  <form>
+    <h1 mat-dialog-title>Mix</h1>
+    <div mat-dialog-content fxLayout="column">
+      <div>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput id="name" type="text">
+        </mat-form-field>
+      </div>
+
+      <!-- Would be able to add as much of each chemicals as they want -->
+      <h2>Anionic Surfactant</h2>
+      <!-- dynamic mat-select and percentage input on the side of each -->
+      <mat-selection-list #anionicSurfactant>
+        <span style="display: flex;">
+
+          <mat-list-option>
+            Sodium lauryl ethyl sulfate (SLES)
+          </mat-list-option>
+          <mat-form-field style="max-width: 50px;">
+            <mat-label>%</mat-label>
+            <input matInput id="percentage" type="number">
+          </mat-form-field>
+        </span>
+
+        <span style="display: flex;">
+          <mat-list-option>
+            Sodium coco sulfate (SCS)
+          </mat-list-option>
+          <mat-form-field style="max-width: 50px;">
+            <mat-label>%</mat-label>
+            <input matInput id="percentage" type="number">
+          </mat-form-field>
+        </span>
+      </mat-selection-list>
+      <!-- add percentage input at the end of each list option -->
+    </div>
+
+    <div mat-dialog-actions align="end">
+      <button color="primary" mat-raised-button type="submit">Save</button>
+      <button mat-raised-button [mat-dialog-close] type="button">Close</button>
+    </div>
+  </form>
+</div>

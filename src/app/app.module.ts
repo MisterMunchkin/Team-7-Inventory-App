@@ -20,12 +20,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
 
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { ConfirmationDialogComponent } from './shared/components/confirmation-dialog/confirmation-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MixComponent } from './mix/mix.component';
+import { MixFormDialogComponent } from './mix/mix-form-dialog/mix-form-dialog.component';
 
 var uiModules = [
   MatSidenavModule,
@@ -40,7 +44,9 @@ var uiModules = [
   MatSelectModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatCardModule,
+  MatListModule
 ]
 
 @NgModule({
@@ -49,7 +55,9 @@ var uiModules = [
     InventoryComponent,
     DashboardComponent,
     InventoryFormDialogComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    MixComponent,
+    MixFormDialogComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

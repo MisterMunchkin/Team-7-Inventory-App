@@ -60,7 +60,7 @@ export class MixFormDialogComponent implements OnInit, AfterViewInit {
   }
 
   addChemical(selectedChemical: Chemical, selectedPercentage: number) {
-    if (selectedChemical.name && selectedPercentage) {
+    if (selectedChemical.name && selectedPercentage && selectedPercentage > 0) {
       const chemicalMix: ChemicalMix = {
         name: selectedChemical.name,
         type: selectedChemical.type,

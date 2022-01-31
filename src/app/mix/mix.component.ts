@@ -40,4 +40,21 @@ export class MixComponent implements OnInit {
       }
     });
   }
+
+  editMix(mix: Mix) {
+    const dialogRef = this.dialog.open(MixFormDialogComponent, {
+      width: '600px',
+      data: mix
+    });
+
+    dialogRef.afterClosed().subscribe((result: Mix) => {
+      if (result) {
+        this.fireStore.collection<Mix>('mix').doc(result.id).update(result);
+      }
+    })
+  }
+
+  removeMix(mix: Mix) {
+    this.fireStore.collection('mix').doc(mix.id).delete();
+  }
 }

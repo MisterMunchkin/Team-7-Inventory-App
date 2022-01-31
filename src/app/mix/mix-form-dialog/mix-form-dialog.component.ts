@@ -1,11 +1,11 @@
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, Inject } from '@angular/core';
 import { Chemical, ChemicalGroup } from 'src/app/shared/models/chemical';
 import { Observable } from 'rxjs';
 import { FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Mix, ChemicalMix } from 'src/app/shared/models/mix';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-mix-form-dialog',
@@ -29,10 +29,15 @@ export class MixFormDialogComponent implements OnInit, AfterViewInit {
 
   constructor(
     public dialogRef: MatDialogRef<MixFormDialogComponent>,
-    private fireStore: AngularFirestore
+    private fireStore: AngularFirestore,
+    @Inject(MAT_DIALOG_DATA) public data: Mix
   ) {
     var ref: AngularFirestoreCollection<Chemical> = this.fireStore.collection<Chemical>('chemicals', ref => ref.orderBy('type'));
     this.$chemicals = ref.valueChanges({idField: 'id'});
+
+    if (data.id) {
+      this.mixData = JSON.parse(JSON.stringify(data));
+    }
   }
 
   ngOnInit(): void {

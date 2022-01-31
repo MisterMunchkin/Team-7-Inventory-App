@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Mix, ChemicalMix } from 'src/app/shared/models/mix';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-mix-form-dialog',
@@ -27,6 +28,7 @@ export class MixFormDialogComponent implements OnInit, AfterViewInit {
   };
 
   constructor(
+    public dialogRef: MatDialogRef<MixFormDialogComponent>,
     private fireStore: AngularFirestore
   ) {
     var ref: AngularFirestoreCollection<Chemical> = this.fireStore.collection<Chemical>('chemicals', ref => ref.orderBy('type'));
@@ -79,7 +81,7 @@ export class MixFormDialogComponent implements OnInit, AfterViewInit {
 
   save() {
     if (this.mixData.name && this.mixData.chemicals.length > 0) {
-      console.log(this.mixData);
+      this.dialogRef.close(this.mixData);
     } else {
       alert("Bruh");
     }

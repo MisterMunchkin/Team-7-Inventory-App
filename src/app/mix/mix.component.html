@@ -7,11 +7,18 @@
   <button style="float: right;" mat-raised-button color="primary" (click)="addDialog()">New Mix</button>
 </div>
 
-<mat-card>
-  <mat-card-title>Shiba Inu</mat-card-title>
-  <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+<mat-card *ngFor="let mix of mixes">
+  <mat-card-title>{{mix.name}}</mat-card-title>
+  <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
   <mat-card-content>
-    <p>This card indeterminates progress bar.</p>
+    <div class="card-chemical-item" *ngFor="let chemical of mix.chemicals">
+      <span class="chemical-list-item">
+        <span><b>{{chemical.name}}</b></span>
+        <span>{{chemical.type}}</span>
+      </span>
+
+      <p style="margin-left: auto;">{{chemical.percentage}}%</p>
+    </div>
     <!-- <p>{{longText}}</p> -->
   </mat-card-content>
   <mat-card-actions>

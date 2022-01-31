@@ -2,3 +2,15 @@ mat-card{
   max-width: 500px;
   max-height: 400px;
 }
+
+
+
+
+.card-chemical-item {
+  display: flex;
+  padding: 10px;
+  .chemical-list-item {
+    display: flex;
+    flex-direction: column;
+  }
+}

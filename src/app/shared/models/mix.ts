@@ -1,4 +1,5 @@
 export interface Mix {
+  id?: string;
   name: string;
   chemicals: Array<ChemicalMix>;
 }

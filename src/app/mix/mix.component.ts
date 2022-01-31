@@ -18,7 +18,7 @@ export class MixComponent implements OnInit {
 
   addDialog() {
     const dialogRef = this.dialog.open(MixFormDialogComponent, {
-      width: '400px'
+      width: '600px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

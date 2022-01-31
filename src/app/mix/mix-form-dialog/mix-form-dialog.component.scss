@@ -1,0 +1,15 @@
+.chemical-add-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  div{
+    padding: 10px;
+  }
+}
+
+.chemical-list-item {
+  display: flex;
+  flex-direction: column;
+}

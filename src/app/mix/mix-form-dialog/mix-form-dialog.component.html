@@ -1,45 +1,54 @@
 <div>
-  <form>
-    <h1 mat-dialog-title>Mix</h1>
-    <div mat-dialog-content fxLayout="column">
+  <h1 mat-dialog-title>
+    <div>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput id="name" [(ngModel)]="mixData.name" type="text">
+      </mat-form-field>
+    </div>
+  </h1>
+  <div mat-dialog-content fxLayout="column">
+    <div class="chemical-add-form">
       <div>
         <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput id="name" type="text">
+          <mat-label>Chemicals</mat-label>
+          <mat-select [(ngModel)]="selectedChemical">
+            <mat-optgroup *ngFor="let chemicalGroup of chemicalGroups" [label]="chemicalGroup.name">
+              <mat-option [value]="chemical" *ngFor="let chemical of chemicalGroup.chemicals">
+                {{chemical.name}}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
         </mat-form-field>
       </div>
-
-      <!-- Would be able to add as much of each chemicals as they want -->
-      <h2>Anionic Surfactant</h2>
-      <!-- dynamic mat-select and percentage input on the side of each -->
-      <mat-selection-list #anionicSurfactant>
-        <span style="display: flex;">
-
-          <mat-list-option>
-            Sodium lauryl ethyl sulfate (SLES)
-          </mat-list-option>
-          <mat-form-field style="max-width: 50px;">
-            <mat-label>%</mat-label>
-            <input matInput id="percentage" type="number">
-          </mat-form-field>
-        </span>
-
-        <span style="display: flex;">
-          <mat-list-option>
-            Sodium coco sulfate (SCS)
-          </mat-list-option>
-          <mat-form-field style="max-width: 50px;">
-            <mat-label>%</mat-label>
-            <input matInput id="percentage" type="number">
-          </mat-form-field>
-        </span>
-      </mat-selection-list>
-      <!-- add percentage input at the end of each list option -->
+      <div>
+        <mat-form-field style="max-width: 50px;">
+          <mat-label>%</mat-label>
+          <input matInput [(ngModel)]="selectedPercentage" id="percentage" type="number">
+        </mat-form-field>
+      </div>
+      <button color="primary" mat-raised-button type="button" (click)="addChemical(selectedChemical, selectedPercentage)">add</button>
     </div>
 
-    <div mat-dialog-actions align="end">
-      <button color="primary" mat-raised-button type="submit">Save</button>
-      <button mat-raised-button [mat-dialog-close] type="button">Close</button>
-    </div>
-  </form>
+    <h2>Chemicals</h2>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let chemicalMix of mixData.chemicals; let i = index">
+        <button mat-icon-button>
+          <mat-icon style="color:red;" (click)="removeChemical(i)">remove_circle_outline</mat-icon>
+        </button>
+        <span class="chemical-list-item">
+          <span>{{chemicalMix.name}}</span>
+          <span>{{chemicalMix.type}}</span>
+        </span>
+
+        <p style="margin-left: auto;">{{chemicalMix.percentage}}%</p>
+      </mat-list-item>
+    </mat-list>
+
+  </div>
+
+  <div mat-dialog-actions align="end">
+    <button color="primary" mat-raised-button type="button" (click)="save()">Save</button>
+    <button mat-raised-button [mat-dialog-close] type="button">Close</button>
+  </div>
 </div>

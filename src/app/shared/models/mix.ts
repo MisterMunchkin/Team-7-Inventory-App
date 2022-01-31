@@ -5,7 +5,6 @@ export interface Mix {
 }
 
 export interface ChemicalMix {
-  chemicalId: string;
   name: string;
   type: string;
   percentage: number;

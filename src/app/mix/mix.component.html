@@ -8,8 +8,10 @@
 </div>
 
 <mat-card style="margin: 10px;" *ngFor="let mix of mixes">
-  <mat-card-title>{{mix.name}}</mat-card-title>
-  <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+  <mat-card-title>
+    {{mix.name}}
+  </mat-card-title>
+  <mat-card-subtitle>Total: {{getTotalPercentage(mix.chemicals)}}%</mat-card-subtitle>
   <mat-card-content>
     <div class="card-chemical-item" *ngFor="let chemical of mix.chemicals">
       <span class="chemical-list-item">

@@ -35,7 +35,7 @@ export class MixFormDialogComponent implements OnInit, AfterViewInit {
     var ref: AngularFirestoreCollection<Chemical> = this.fireStore.collection<Chemical>('chemicals', ref => ref.orderBy('type'));
     this.$chemicals = ref.valueChanges({idField: 'id'});
 
-    if (data.id) {
+    if (data) {
       this.mixData = JSON.parse(JSON.stringify(data));
     }
   }
@@ -45,6 +45,7 @@ export class MixFormDialogComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.$chemicals.subscribe(data => {
+      console.log(JSON.stringify(data));
       const chemicalType = [... new Set(data.map(d => d.type))];
 
       chemicalType.forEach(c => {
@@ -61,7 +62,6 @@ export class MixFormDialogComponent implements OnInit, AfterViewInit {
   addChemical(selectedChemical: Chemical, selectedPercentage: number) {
     if (selectedChemical.name && selectedPercentage) {
       const chemicalMix: ChemicalMix = {
-        chemicalId: selectedChemical.id || '',
         name: selectedChemical.name,
         type: selectedChemical.type,
         percentage: selectedPercentage

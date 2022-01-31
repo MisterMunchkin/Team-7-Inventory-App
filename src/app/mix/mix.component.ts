@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { Mix } from '../shared/models/mix';
+import { Chemical } from '../shared/models/chemical';
+import { ChemicalMix, Mix } from '../shared/models/mix';
 import { MixFormDialogComponent } from './mix-form-dialog/mix-form-dialog.component';
 
 @Component({
@@ -52,6 +53,15 @@ export class MixComponent implements OnInit {
         this.fireStore.collection<Mix>('mix').doc(result.id).update(result);
       }
     })
+  }
+
+  getTotalPercentage(chemicals: Array<ChemicalMix>) {
+    let total = 0;
+    chemicals.forEach(c => {
+      total += c.percentage;
+    });
+
+    return total;
   }
 
   removeMix(mix: Mix) {

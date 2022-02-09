@@ -30,6 +30,8 @@ import { ConfirmationDialogComponent } from './shared/components/confirmation-di
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MixComponent } from './mix/mix.component';
 import { MixFormDialogComponent } from './mix/mix-form-dialog/mix-form-dialog.component';
+import { CookieService } from 'ngx-cookie-service';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 var uiModules = [
   MatSidenavModule,
@@ -57,7 +59,8 @@ var uiModules = [
     InventoryFormDialogComponent,
     ConfirmationDialogComponent,
     MixComponent,
-    MixFormDialogComponent
+    MixFormDialogComponent,
+    UnauthorizedComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -72,7 +75,7 @@ var uiModules = [
   exports: [
     uiModules
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

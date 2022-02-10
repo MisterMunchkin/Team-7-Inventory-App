@@ -1,4 +1,4 @@
-<div class="header">
+<div class="inline table-header" style="width: 100%; overflow:auto;">
   <h1 matTooltip="Chemistry shit 🔥🔥🔥">Mixology</h1>
   <!-- <mat-form-field>
     <mat-label>Search</mat-label>
@@ -7,24 +7,26 @@
   <button style="float: right;" mat-raised-button color="primary" (click)="addDialog()">New Mix</button>
 </div>
 
-<mat-card style="margin: 10px;" *ngFor="let mix of mixes">
-  <mat-card-title>
-    {{mix.name}}
-  </mat-card-title>
-  <mat-card-subtitle>Total: {{getTotalPercentage(mix.chemicals)}}%</mat-card-subtitle>
-  <mat-card-content>
-    <div class="card-chemical-item" *ngFor="let chemical of mix.chemicals">
-      <span class="chemical-list-item">
-        <span><b>{{chemical.name}}</b></span>
-        <span>{{chemical.type}}</span>
-      </span>
+<div style="display: flex; flex-direction: row;">
+  <mat-card style="margin: 10px; min-width: 500px;" *ngFor="let mix of mixes">
+    <mat-card-title>
+      {{mix.name}}
+    </mat-card-title>
+    <mat-card-subtitle>Total: {{getTotalPercentage(mix.chemicals)}}%</mat-card-subtitle>
+    <mat-card-content>
+      <div class="card-chemical-item" *ngFor="let chemical of mix.chemicals">
+        <span class="chemical-list-item">
+          <span><b>{{chemical.name}}</b></span>
+          <span>{{chemical.type}}</span>
+        </span>
 
-      <p style="margin-left: auto;">{{chemical.percentage}}%</p>
-    </div>
-    <!-- <p>{{longText}}</p> -->
-  </mat-card-content>
-  <mat-card-actions>
-    <button (click)="editMix(mix)" mat-button>Edit</button>
-    <button (click)="removeMix(mix)" mat-button>Delete</button>
-  </mat-card-actions>
-</mat-card>
+        <p style="margin-left: auto;">{{chemical.percentage}}%</p>
+      </div>
+      <!-- <p>{{longText}}</p> -->
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="editMix(mix)" mat-button>Edit</button>
+      <button (click)="removeMix(mix)" mat-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

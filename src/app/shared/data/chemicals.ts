@@ -53,6 +53,10 @@ export class ChemicalDB {
       "type": "Fragrance"
     },
     {
+      "name": "Lemon",
+      "type": "Fragrance"
+    },
+    {
       "type": "Preservative",
       "name": "Benzisothiazolinone"
     },

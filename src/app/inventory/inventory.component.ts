@@ -26,7 +26,7 @@ export class InventoryComponent implements AfterViewInit {
     private dialog: MatDialog,
     private firestore: AngularFirestore
   ) {
-    var ref: AngularFirestoreCollection<Inventory> = this.firestore.collection<Inventory>('inventory');
+    var ref: AngularFirestoreCollection<Inventory> = this.firestore.collection<Inventory>(this.collectionId);
     this.$dataSource = ref.valueChanges({idField: 'id'});
   }
 

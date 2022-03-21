@@ -9,7 +9,7 @@
 <div class="mat-elevation-z8" style="margin-bottom:40px;">
   <!-- <mat-spinner *ngIf="isLoading$" class="spinner-container"></mat-spinner> -->
 
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
+  <table mat-table class="full-width-table" matSort aria-label="Elements" #tableSort="matSort">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
@@ -18,18 +18,18 @@
 
     <!-- Quantity Column -->
     <ng-container matColumnDef="quantity">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+      <th mat-header-cell *matHeaderCellDef>Quantity</th>
       <td mat-cell *matCellDef="let row">{{row.quantity}}</td>
     </ng-container>
 
     <!-- Metric Column -->
     <ng-container matColumnDef="metric">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+      <th mat-header-cell *matHeaderCellDef>Metric</th>
       <td mat-cell *matCellDef="let row">{{row.metric}}</td>
     </ng-container>
 
     <!-- Price Per Item Column -->
-    <ng-container matColumnDef="pricePerItem">
+    <ng-container matColumnDef="pricePerQuantity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Price Per Item</th>
       <td mat-cell *matCellDef="let row">{{row.pricePerQuantity}}</td>
     </ng-container>
@@ -49,7 +49,7 @@
 
     <!-- Total Column -->
     <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
+      <th mat-header-cell *matHeaderCellDef>Total</th>
       <td mat-cell *matCellDef="let row">{{getTotal(row)}}</td>
     </ng-container>
 

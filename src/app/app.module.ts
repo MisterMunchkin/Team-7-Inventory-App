@@ -32,6 +32,7 @@ import { MixComponent } from './mix/mix.component';
 import { MixFormDialogComponent } from './mix/mix-form-dialog/mix-form-dialog.component';
 import { CookieService } from 'ngx-cookie-service';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { MatSortModule } from '@angular/material/sort';
 
 var uiModules = [
   MatSidenavModule,
@@ -48,7 +49,8 @@ var uiModules = [
   MatNativeDateModule,
   MatTooltipModule,
   MatCardModule,
-  MatListModule
+  MatListModule,
+  MatSortModule
 ]
 
 @NgModule({

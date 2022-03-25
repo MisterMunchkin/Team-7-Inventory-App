@@ -48,3 +48,6 @@ Thumbs.db
 /environments
 environment.prod.ts
 environment.ts
+
+#firebase
+/.firebase

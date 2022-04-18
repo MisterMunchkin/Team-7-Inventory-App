@@ -1,1 +1,72 @@
-<p>invoice-form-dialog works!</p>
+<div>
+  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-form-field>
+        <mat-label>Due Date</mat-label>
+        <input matInput id="dueDate"  [matDatepicker]="dueDate" formControlName="dueDate">
+
+        <mat-datepicker-toggle matSuffix [for]="dueDate"></mat-datepicker-toggle>
+        <mat-datepicker #dueDate></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Bill To</mat-label>
+        <input matInput id="billTo" formControlName="billTo" type="text"/>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Ship To</mat-label>
+        <input matInput id="shipTo" formControlName="shipTo" type="text">
+      </mat-form-field>
+    </div>
+
+    <ng-container formArrayName="items">
+      <div class="items-header">
+        <h2>Items</h2>
+        <button mat-raised-button color="primary" (click)="addItem()">Add Item</button>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="item-group" *ngFor="let _ of itemsFormArray.controls; index as i">
+        <ng-container [formGroupName]="i">
+          <div style="flex-grow: .6;">
+            <mat-form-field style="width: 100%">
+              <mat-label>Name</mat-label>
+              <input matInput id="name" formControlName="name" type="text" />
+            </mat-form-field>
+          </div>
+          <div style="flex-grow: 1;">
+            <mat-form-field style="width: 100%">
+              <mat-label>Description</mat-label>
+              <input matInput id="description" formControlName="description" type="text" />
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field style="width: 100px;">
+              <mat-label>Quantity</mat-label>
+              <input matInput id="quantity" formControlName="quantity" type="number"/>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field style="width: 100px;">
+              <mat-label>Price Per Item</mat-label>
+              <input matInput id="pricePerItem" formControlName="pricePerItem" type="number"/>
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field style="width: 100px;">
+              <mat-label>Amount</mat-label>
+              <input matInput [disabled]="true" id="amount" formControlName="amount" type="number" />
+            </mat-form-field>
+          </div>
+          <button mat-icon-button color="warn" (click)="removeItem(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+      </div>
+    </ng-container>
+  </form>
+</div>

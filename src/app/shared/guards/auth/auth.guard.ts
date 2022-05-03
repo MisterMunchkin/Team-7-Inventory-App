@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
       return this.router.parseUrl('sign-in') as UrlTree;
     }
 
-    if (authUser?.email === 'hanneh.hanami@gmail.com' || authUser?.email === 'zidoniratatoy@gmail.com' || authUser?.email === 'robindalmy@gmail.com') {
+    if (authUser?.email === 'hanneh.hanami@gmail.com' || authUser?.email === 'zidoniratatoy@gmail.com' || authUser?.email === 'robindalmy@gmail.com' || authUser?.email === 'team.se7en.org@gmail.com') {
       return true;
     }
 

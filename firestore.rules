@@ -6,7 +6,8 @@ service cloud.firestore {
       	request.auth != null &&
         (request.auth.token.email == 'hanneh.hanami@gmail.com') ||
         (request.auth.token.email == 'zidoniratatoy@gmail.com') ||
-        (request.auth.token.email == 'robindalmy@gmail.com')
+        (request.auth.token.email == 'robindalmy@gmail.com') ||
+        (request.auth.token.email == 'team.se7en.org@gmail.com')
     }
   }
 }

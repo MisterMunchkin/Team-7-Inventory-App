@@ -47,19 +47,19 @@
           <div>
             <mat-form-field style="width: 100px;">
               <mat-label>Quantity</mat-label>
-              <input matInput id="quantity" formControlName="quantity" type="number"/>
+              <input matInput (input)="computeAmount(i)" id="quantity" formControlName="quantity" type="number"/>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field style="width: 100px;">
               <mat-label>Price Per Item</mat-label>
-              <input matInput id="pricePerItem" formControlName="pricePerItem" type="number"/>
+              <input matInput (input)="computeAmount(i)" id="pricePerItem" formControlName="pricePerItem" type="number"/>
             </mat-form-field>
           </div>
           <div>
             <mat-form-field style="width: 100px;">
               <mat-label>Amount</mat-label>
-              <input matInput [disabled]="true" id="amount" formControlName="amount" type="number" />
+              <input matInput id="amount" formControlName="amount" type="number" />
             </mat-form-field>
           </div>
           <button mat-icon-button color="warn" (click)="removeItem(i)">
@@ -67,6 +67,14 @@
           </button>
         </ng-container>
       </div>
+      <mat-divider></mat-divider>
     </ng-container>
+
+    <div>
+      <mat-form-field>
+        <mat-label>SubTotal</mat-label>
+        <input matInput id="subTotal" formControlName="subTotal" type="number" />
+      </mat-form-field>
+    </div>
   </form>
 </div>

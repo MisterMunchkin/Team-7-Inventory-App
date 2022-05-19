@@ -69,12 +69,48 @@
       </div>
       <mat-divider></mat-divider>
     </ng-container>
+    <div class="summary" style="display: flex;">
+      <div class="text-area">
+        <div>
+          <mat-form-field class="text-area">
+            <mat-label>Notes</mat-label>
+            <textarea matInput id="notes" formControlName="notes" rows="4"></textarea>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="text-area">
+            <mat-label>Terms</mat-label>
+            <textarea matInput id="terms" formControlName="terms" rows="4"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
 
-    <div>
-      <mat-form-field>
-        <mat-label>SubTotal</mat-label>
-        <input matInput id="subTotal" formControlName="subTotal" type="number" />
-      </mat-form-field>
+      <div class="calculations">
+        <div>
+          <mat-form-field>
+            <mat-label>SubTotal</mat-label>
+            <input matInput id="subTotal" formControlName="subTotal" type="number" />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Discount</mat-label>
+            <input matInput id="discount" formControlName="discount" type="number" />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Delivery Fee</mat-label>
+            <input matInput id="deliveryFee" formControlName="deliveryFee" type="number" />
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label>Total</mat-label>
+            <input matInput id="total" formControlName="total" type="number" />
+          </mat-form-field>
+        </div>
+      </div>
     </div>
   </form>
 </div>

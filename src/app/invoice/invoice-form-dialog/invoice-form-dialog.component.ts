@@ -48,6 +48,21 @@ export class InvoiceFormDialogComponent implements OnInit {
     }
   }
 
+  ngOnInit(): void {
+    this.invoiceForm = new FormGroup({
+      dueDate: new FormControl(this.invoiceData.dueDate, [Validators.required]),
+      billTo: new FormControl(this.invoiceData.billTo, [Validators.required]),
+      shipTo: new FormControl(this.invoiceData.shipTo),
+      items: this.itemsFormArray,
+      subTotal: new FormControl({value: this.invoiceData.subTotal, disabled: true}, [Validators.required, Validators.min(1)]),
+      discount: new FormControl(this.invoiceData.discount, [Validators.min(0)]),
+      deliveryFee: new FormControl(this.invoiceData.deliveryFee, [Validators.min(0)]),
+      total: new FormControl({value: this.invoiceData.total, disabled: true}, [Validators.min(0)]),
+      notes: new FormControl(this.invoiceData.notes),
+      terms: new FormControl(this.invoiceData.terms)
+    });
+  }
+
   addItem() {
     const group = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -60,6 +75,7 @@ export class InvoiceFormDialogComponent implements OnInit {
     this.itemsFormArray.push(group);
   }
 
+  //Computes the amount for each line item: quantity * price
   computeAmount(index: number) {
     var control = this.itemsFormArray.controls[index];
 
@@ -74,7 +90,8 @@ export class InvoiceFormDialogComponent implements OnInit {
     this.computeSubTotal();
   }
 
-  computeSubTotal() {
+  //Computes the subtotal from the amount of each line item: summary(amount)
+  private computeSubTotal() {
     var subTotal = 0
 
     this.itemsFormArray.controls.forEach((item : AbstractControl) => {
@@ -85,6 +102,15 @@ export class InvoiceFormDialogComponent implements OnInit {
     this.invoiceForm.patchValue({
       subTotal: subTotal
     });
+
+    this.computeTotal();
+  }
+
+  //Computes the total based on subTotal, discount, delivery fee
+  computeTotal() {
+    var total = 0;
+
+
   }
 
   getItemsFormArray() {
@@ -100,16 +126,6 @@ export class InvoiceFormDialogComponent implements OnInit {
       });
 
       this.itemsFormArray.push(group);
-    });
-  }
-
-  ngOnInit(): void {
-    this.invoiceForm = new FormGroup({
-      dueDate: new FormControl(this.invoiceData.dueDate, [Validators.required]),
-      billTo: new FormControl(this.invoiceData.billTo, [Validators.required]),
-      shipTo: new FormControl(this.invoiceData.shipTo),
-      items: this.itemsFormArray,
-      subTotal: new FormControl({value: this.invoiceData.subTotal, disabled: true}, [Validators.required, Validators.min(1)])
     });
   }
 

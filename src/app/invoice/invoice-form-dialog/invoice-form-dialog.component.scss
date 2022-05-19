@@ -12,3 +12,21 @@
     padding-right: 10px;
   }
 }
+
+.text-area{
+  width: 50%
+}
+
+.summary{
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .text-area{
+    flex: 1;
+  }
+
+  .calculations{
+    display: block;
+  }
+}

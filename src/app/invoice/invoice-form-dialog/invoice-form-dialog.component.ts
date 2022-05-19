@@ -96,7 +96,7 @@ export class InvoiceFormDialogComponent implements OnInit {
 
     this.itemsFormArray.controls.forEach((item : AbstractControl) => {
       var formGroup = item as FormGroup;
-      subTotal += isNaN(formGroup.controls["amount"].value) ? 0 : formGroup.controls["amount"].value;
+      subTotal += formGroup.controls["amount"].value || 0;
     });
 
     this.invoiceForm.patchValue({
@@ -109,8 +109,15 @@ export class InvoiceFormDialogComponent implements OnInit {
   //Computes the total based on subTotal, discount, delivery fee
   computeTotal() {
     var total = 0;
+    var subTotal = this.invoiceForm.controls["subTotal"].value || 0;
+    var discount = this.invoiceForm.controls["discount"].value || 0;
+    var deliveryFee = this.invoiceForm.controls["deliveryFee"].value || 0;
 
+    total = (subTotal + deliveryFee) - discount;
 
+    this.invoiceForm.patchValue({
+      total: total
+    });
   }
 
   getItemsFormArray() {

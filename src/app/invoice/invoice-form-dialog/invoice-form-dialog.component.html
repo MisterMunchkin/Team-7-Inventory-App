@@ -95,13 +95,13 @@
         <div>
           <mat-form-field>
             <mat-label>Discount</mat-label>
-            <input matInput id="discount" formControlName="discount" type="number" />
+            <input matInput id="discount" (input)="computeTotal()" formControlName="discount" type="number" />
           </mat-form-field>
         </div>
         <div>
           <mat-form-field>
             <mat-label>Delivery Fee</mat-label>
-            <input matInput id="deliveryFee" formControlName="deliveryFee" type="number" />
+            <input matInput id="deliveryFee" (input)="computeTotal()" formControlName="deliveryFee" type="number" />
           </mat-form-field>
         </div>
         <div>

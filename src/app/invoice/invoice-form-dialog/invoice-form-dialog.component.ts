@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Invoice, Item } from 'src/app/shared/models/invoice';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms'
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import cloneDeep from 'lodash.clonedeep';
 
 @Component({
   templateUrl: './invoice-form-dialog.component.html',
@@ -16,8 +17,8 @@ export class InvoiceFormDialogComponent implements OnInit {
 
   cleanDataForm: Invoice = {
     invoiceNumber: 0,
-    createdDate: new Date(),
-    dueDate: new Date(),
+    createdDate: new Date().toLocaleDateString(),
+    dueDate: new Date().toLocaleDateString(),
     billTo: '',
     shipTo: '',
     items: [],
@@ -35,7 +36,6 @@ export class InvoiceFormDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: number | Invoice
   ) {
     if (typeof data === "number") { //add dialog
-      console.log(data);
       this.isEdit = false;
 
       this.invoiceData = this.cleanDataForm;
@@ -43,14 +43,14 @@ export class InvoiceFormDialogComponent implements OnInit {
     } else { //edit dialog
       this.isEdit = true;
 
-      this.invoiceData = JSON.parse(JSON.stringify(data));
+      this.invoiceData = cloneDeep(data);
       this.getItemsFormArray();
     }
   }
 
   ngOnInit(): void {
     this.invoiceForm = new FormGroup({
-      dueDate: new FormControl(this.invoiceData.dueDate, [Validators.required]),
+      dueDate: new FormControl(new Date(this.invoiceData.dueDate), [Validators.required]),
       billTo: new FormControl(this.invoiceData.billTo, [Validators.required]),
       shipTo: new FormControl(this.invoiceData.shipTo),
       items: this.itemsFormArray,
@@ -144,18 +144,21 @@ export class InvoiceFormDialogComponent implements OnInit {
       this.invoiceData.billTo = invoice.billTo;
       this.invoiceData.deliveryFee = invoice.deliveryFee;
       this.invoiceData.discount = invoice.discount;
-
-      this.invoiceData.dueDate = invoice.dueDate;
       this.invoiceData.notes = invoice.notes;
       this.invoiceData.shipTo = invoice.shipTo;
       this.invoiceData.subTotal = invoice.subTotal;
       this.invoiceData.terms = invoice.terms;
       this.invoiceData.total = invoice.total;
 
+      //Save dates as date string because firebase does this weird thing where it returns
+      //Dates as timestamp and brings a bunch of problems to the front end
+      const dueDate = invoice.dueDate as Date;
+      this.invoiceData.dueDate = dueDate.toLocaleDateString() || '';
+
       const items = invoice.items as Array<Item>;
       this.invoiceData.items = items;
 
-      this.dialogRef.close(this.invoiceData);
+      this.dialogRef.close(cloneDeep(this.invoiceData));
     }
   }
 

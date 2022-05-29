@@ -3,6 +3,7 @@ import { Inventory } from './../../shared/models/inventory';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import cloneDeep from 'lodash.clonedeep';
 
 @Component({
   selector: 'app-inventory-form-dialog',
@@ -29,7 +30,7 @@ export class InventoryFormDialogComponent implements OnInit {
   @Inject(MAT_DIALOG_DATA) public data: Inventory) {
     if (data) {
       //edit inventory
-      this.inventoryData = JSON.parse(JSON.stringify(data));
+      this.inventoryData = cloneDeep(data);
       this.isEdit = true;
     } else {
       //add inventory
@@ -63,7 +64,7 @@ export class InventoryFormDialogComponent implements OnInit {
       this.inventoryData.dateReceived = received.toLocaleDateString();
       this.inventoryData.dateOpened = opened?.toLocaleDateString() || '';
 
-      this.dialogRef.close(this.inventoryData);
+      this.dialogRef.close(cloneDeep(this.inventoryData));
     }
   }
 }

@@ -1,7 +1,8 @@
 export interface Invoice {
+  id?: string,
   invoiceNumber: number,
-  createdDate: Date,
-  dueDate: Date,
+  createdDate: string,
+  dueDate: string,
   billTo: string,
   shipTo?: string,
   items: Array<Item>,

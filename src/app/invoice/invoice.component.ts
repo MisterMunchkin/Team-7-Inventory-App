@@ -52,6 +52,24 @@ export class InvoiceComponent implements AfterViewInit {
     });
   }
 
+  editDialog(data: Invoice) {
+    const dialogRef = this.dialog.open(InvoiceFormDialogComponent, {
+      width: '95vw',
+      data: data
+    });
+
+    dialogRef.afterClosed()
+    .subscribe((result: Invoice) => {
+      if (result) {
+        this.firestore.collection(this.collectionId).doc(result?.id).set(result);
+      }
+    });
+  }
+
+  deleteDialog(data: Invoice) {
+
+  }
+
   getNextInvoiceNumber(): number {
     if (this.invoiceList.length > 0) {
       //sort list and get the highest number

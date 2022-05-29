@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
+import { ConfirmationDialogComponent, ConfirmationDialogModel } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Invoice } from '../shared/models/invoice';
 import { InvoiceFormDialogComponent } from './invoice-form-dialog/invoice-form-dialog.component';
 
@@ -67,7 +68,20 @@ export class InvoiceComponent implements AfterViewInit {
   }
 
   deleteDialog(data: Invoice) {
+    const message = 'Deleting an Invoice is kind of stupid because it should be edited to balance the numbers but fuck it you do you.';
+    const dialogData = new ConfirmationDialogModel("I hope you know what you're doing.", message);
 
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      maxHeight: '600px',
+      data: dialogData
+    });
+
+    dialogRef.afterClosed()
+    .subscribe(result => {
+      if (result) {
+        this.firestore.collection(this.collectionId).doc(data?.id).delete();
+      }
+    });
   }
 
   getNextInvoiceNumber(): number {

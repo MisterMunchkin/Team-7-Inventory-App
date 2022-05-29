@@ -4,7 +4,7 @@ export interface Invoice {
   dueDate: Date,
   billTo: string,
   shipTo?: string,
-  Items: Array<Item>,
+  items: Array<Item>,
   subTotal: number,
   discount?: number,
   deliveryFee?: number,

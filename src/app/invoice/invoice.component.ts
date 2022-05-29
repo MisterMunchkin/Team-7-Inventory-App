@@ -47,6 +47,7 @@ export class InvoiceComponent implements AfterViewInit {
     .subscribe((result: Invoice) => {
       if (result) {
         //Send to Firebase
+        this.firestore.collection(this.collectionId).doc().set(result);
       }
     });
   }

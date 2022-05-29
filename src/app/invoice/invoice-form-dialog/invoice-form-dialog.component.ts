@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Invoice, Item } from 'src/app/shared/models/invoice';
 import { AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms'
 
@@ -11,7 +11,7 @@ export class InvoiceFormDialogComponent implements OnInit {
   invoiceForm!: FormGroup;
   invoiceData: Invoice;
 
-  itemsFormArray: FormArray = new FormArray([]);
+  itemsFormArray: FormArray = new FormArray([], [Validators.minLength(1)]);
   items: Array<Item> = [];
 
   cleanDataForm: Invoice = {
@@ -20,7 +20,7 @@ export class InvoiceFormDialogComponent implements OnInit {
     dueDate: new Date(),
     billTo: '',
     shipTo: '',
-    Items: [],
+    items: [],
     subTotal: 0,
     discount: 0,
     deliveryFee: 0,
@@ -31,7 +31,7 @@ export class InvoiceFormDialogComponent implements OnInit {
 
   isEdit: boolean = false;
 
-  constructor(
+  constructor(public dialogRef: MatDialogRef<InvoiceFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: number | Invoice
   ) {
     if (typeof data === "number") { //add dialog
@@ -121,7 +121,7 @@ export class InvoiceFormDialogComponent implements OnInit {
   }
 
   getItemsFormArray() {
-    const items = this.invoiceData.Items;
+    const items = this.invoiceData.items;
 
     items.forEach(item => {
       const group = new FormGroup({
@@ -138,6 +138,25 @@ export class InvoiceFormDialogComponent implements OnInit {
 
   onSubmit() {
     //tbc
+    if (this.invoiceForm.valid) {
+      const invoice = this.invoiceForm.getRawValue();
+      //We might be ablt to just as Invoice instead of mapping one by one
+      this.invoiceData.billTo = invoice.billTo;
+      this.invoiceData.deliveryFee = invoice.deliveryFee;
+      this.invoiceData.discount = invoice.discount;
+
+      this.invoiceData.dueDate = invoice.dueDate;
+      this.invoiceData.notes = invoice.notes;
+      this.invoiceData.shipTo = invoice.shipTo;
+      this.invoiceData.subTotal = invoice.subTotal;
+      this.invoiceData.terms = invoice.terms;
+      this.invoiceData.total = invoice.total;
+
+      const items = invoice.items as Array<Item>;
+      this.invoiceData.items = items;
+
+      this.dialogRef.close(this.invoiceData);
+    }
   }
 
   removeItem(index: number) {

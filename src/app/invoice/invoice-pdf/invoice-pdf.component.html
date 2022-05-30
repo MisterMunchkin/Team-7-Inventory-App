@@ -1,0 +1,98 @@
+<div>
+  <div mat-dialog-actions align="end">
+    <button color="primary" mat-raised-button (click)="downloadPDF()">Download</button>
+    <button mat-raised-button [mat-dialog-close] type="button">Close</button>
+  </div>
+  <div id="invoice" class="invoice-box" #invoice>
+    <table cellpadding="0" cellspacing="0">
+      <tr class="top">
+        <td colspan="5">
+          <table>
+            <tr>
+              <td class="title">
+                <!-- <img src="https://www.sparksuite.com/images/logo.png" style="width: 100%; max-width: 300px" /> -->
+                <H1>Quantum Cleaning</H1>
+              </td>
+              <td></td>
+
+              <td>
+                Invoice #: {{invoiceData.invoiceNumber}}<br />
+                Created: {{invoiceData.createdDate}}<br />
+                Due: {{invoiceData.dueDate}}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr class="information">
+        <td colspan="5">
+          <table>
+            <tr>
+              <td>
+                <span style="font-weight: bold;">Bill To</span> <br />
+                {{invoiceData.billTo}}<br /> <br />
+
+                <span style="font-weight: bold;">Ship To</span> <br />
+                {{invoiceData.shipTo}} <br /> <br />
+
+                <span style="font-weight: bold;">Shipping Address</span> <br />
+                {{invoiceData.shippingAddress}}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr class="heading">
+        <td>Item</td>
+        <td>Description</td>
+        <td>Quantity</td>
+        <td>Price</td>
+        <td>Total</td>
+      </tr>
+
+      <tr *ngFor="let item of invoiceData.items"
+      class="item" align="center">
+        <td align="left">{{item.name}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.pricePerItem}}</td>
+        <td>{{item.amount}}</td>
+      </tr>
+
+      <tr>
+        <td colspan="5">
+          <table>
+            <tr>
+              <td>
+                <span style="font-weight: bold;">Notes</span> <br />
+                {{invoiceData.notes}} <br /> <br />
+                <span style="font-weight: bold;">Terms</span> <br />
+                {{invoiceData.terms}}
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+        </td>
+        <td colspan="5">Subtotal: {{invoiceData.subTotal}}</td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td colspan="5">Discount: {{invoiceData.discount}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td colspan="5">Delivery Fee: {{invoiceData.deliveryFee}}</td>
+      </tr>
+      <tr class="total">
+        <td></td>
+        <td colspan="5">Total: {{invoiceData.total}}</td>
+      </tr>
+    </table>
+  </div>
+</div>

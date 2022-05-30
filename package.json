@@ -23,6 +23,8 @@
     "@angular/router": "~13.1.0",
     "firebase": "^9.6.2",
     "firebaseui": "^6.0.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "lodash.clonedeep": "^4.5.0",
     "ngx-cookie-service": "^13.1.2",
     "rxjs": "~7.4.0",

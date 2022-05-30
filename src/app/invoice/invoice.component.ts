@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ConfirmationDialogComponent, ConfirmationDialogModel } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { Invoice } from '../shared/models/invoice';
 import { InvoiceFormDialogComponent } from './invoice-form-dialog/invoice-form-dialog.component';
+import { InvoicePdfComponent } from './invoice-pdf/invoice-pdf.component';
 
 @Component({
   selector: 'app-invoice',
@@ -41,6 +42,7 @@ export class InvoiceComponent implements AfterViewInit {
     const nextInvoiceNumber = this.getNextInvoiceNumber();
     const dialogRef = this.dialog.open(InvoiceFormDialogComponent, {
       width: '95vw',
+      maxHeight: '90vh',
       data: nextInvoiceNumber
     });
 
@@ -56,6 +58,7 @@ export class InvoiceComponent implements AfterViewInit {
   editDialog(data: Invoice) {
     const dialogRef = this.dialog.open(InvoiceFormDialogComponent, {
       width: '95vw',
+      maxHeight: '90vh',
       data: data
     });
 
@@ -81,6 +84,14 @@ export class InvoiceComponent implements AfterViewInit {
       if (result) {
         this.firestore.collection(this.collectionId).doc(data?.id).delete();
       }
+    });
+  }
+
+  downloadToPDF(data: Invoice) {
+    this.dialog.open(InvoicePdfComponent, {
+      width: '95wv',
+      maxHeight: '90vh',
+      data: data
     });
   }
 

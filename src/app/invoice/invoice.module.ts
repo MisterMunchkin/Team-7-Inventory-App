@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
+import { InvoicePdfComponent } from './invoice-pdf/invoice-pdf.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 var uiModules = [
   MatIconModule,
@@ -22,13 +24,15 @@ var uiModules = [
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
-  MatDividerModule
+  MatDividerModule,
+  MatTooltipModule
 ]
 
 @NgModule({
   declarations: [
     InvoiceComponent,
-    InvoiceFormDialogComponent
+    InvoiceFormDialogComponent,
+    InvoicePdfComponent
   ],
   imports: [
     CommonModule,

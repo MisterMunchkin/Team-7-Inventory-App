@@ -21,6 +21,7 @@ export class InvoiceFormDialogComponent implements OnInit {
     dueDate: new Date().toLocaleDateString(),
     billTo: '',
     shipTo: '',
+    shippingAddress: '',
     items: [],
     subTotal: 0,
     discount: 0,
@@ -53,6 +54,7 @@ export class InvoiceFormDialogComponent implements OnInit {
       dueDate: new FormControl(new Date(this.invoiceData.dueDate), [Validators.required]),
       billTo: new FormControl(this.invoiceData.billTo, [Validators.required]),
       shipTo: new FormControl(this.invoiceData.shipTo),
+      shippingAddress: new FormControl(this.invoiceData.shippingAddress),
       items: this.itemsFormArray,
       subTotal: new FormControl({value: this.invoiceData.subTotal, disabled: true}, [Validators.required, Validators.min(1)]),
       discount: new FormControl(this.invoiceData.discount, [Validators.min(0)]),
@@ -146,6 +148,7 @@ export class InvoiceFormDialogComponent implements OnInit {
       this.invoiceData.discount = invoice.discount;
       this.invoiceData.notes = invoice.notes;
       this.invoiceData.shipTo = invoice.shipTo;
+      this.invoiceData.shippingAddress = invoice.shippingAddress;
       this.invoiceData.subTotal = invoice.subTotal;
       this.invoiceData.terms = invoice.terms;
       this.invoiceData.total = invoice.total;

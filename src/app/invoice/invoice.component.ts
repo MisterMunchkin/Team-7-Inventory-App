@@ -96,9 +96,10 @@ export class InvoiceComponent implements AfterViewInit {
   }
 
   getNextInvoiceNumber(): number {
-    if (this.invoiceList.length > 0) {
+    var length = this.invoiceList.length;
+    if (length > 0) {
       //sort list and get the highest number
-      const nextInvoiceNumber = this.invoiceList.sort((n1, n2) => n1.invoiceNumber - n2.invoiceNumber)[0]; //get the highest number
+      const nextInvoiceNumber = this.invoiceList.sort((n1, n2) => n1.invoiceNumber - n2.invoiceNumber)[length - 1]; //get the highest number
       return nextInvoiceNumber.invoiceNumber + 1;
     } else {
       //return 1 to start the invoice cycle

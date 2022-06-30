@@ -26,7 +26,7 @@ export class InvoiceComponent implements AfterViewInit {
     private dialog: MatDialog,
     private firestore: AngularFirestore
   ) {
-    var ref: AngularFirestoreCollection<Invoice> = this.firestore.collection<Invoice>(this.collectionId);
+    var ref: AngularFirestoreCollection<Invoice> = this.firestore.collection<Invoice>(this.collectionId, ref => ref.orderBy('invoiceNumber', 'desc'));
     this.$dataSource = ref.valueChanges({idField: 'id'});
   }
 

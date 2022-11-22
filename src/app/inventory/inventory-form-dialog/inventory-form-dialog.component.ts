@@ -1,7 +1,7 @@
 import { MetricDB } from './../../shared/data/metrics';
 import { Inventory } from './../../shared/models/inventory';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import cloneDeep from 'lodash.clonedeep';
 
@@ -11,7 +11,7 @@ import cloneDeep from 'lodash.clonedeep';
   styleUrls: ['./inventory-form-dialog.component.scss']
 })
 export class InventoryFormDialogComponent implements OnInit {
-  inventoryForm!: FormGroup;
+  inventoryForm!: UntypedFormGroup;
   inventoryData: Inventory;
 
   cleanDataForm: Inventory = {
@@ -40,13 +40,13 @@ export class InventoryFormDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.inventoryForm = new FormGroup({
-      name: new FormControl(this.inventoryData.name, [Validators.required]),
-      quantity: new FormControl(this.inventoryData.quantity, [Validators.required, Validators.min(0)]),
-      metric: new FormControl(this.inventoryData.metric, [Validators.required]),
-      pricePerQuantity: new FormControl(this.inventoryData.pricePerQuantity, [Validators.required, Validators.min(0)]),
-      dateReceived: new FormControl(new Date(this.inventoryData.dateReceived), [Validators.required]),
-      dateOpened: new FormControl((this.inventoryData.dateOpened) ? new Date(this.inventoryData.dateOpened) : null)
+    this.inventoryForm = new UntypedFormGroup({
+      name: new UntypedFormControl(this.inventoryData.name, [Validators.required]),
+      quantity: new UntypedFormControl(this.inventoryData.quantity, [Validators.required, Validators.min(0)]),
+      metric: new UntypedFormControl(this.inventoryData.metric, [Validators.required]),
+      pricePerQuantity: new UntypedFormControl(this.inventoryData.pricePerQuantity, [Validators.required, Validators.min(0)]),
+      dateReceived: new UntypedFormControl(new Date(this.inventoryData.dateReceived), [Validators.required]),
+      dateOpened: new UntypedFormControl((this.inventoryData.dateOpened) ? new Date(this.inventoryData.dateOpened) : null)
     });
   }
 

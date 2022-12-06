@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import * as firebaseui from 'firebaseui';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthUser } from 'src/app/shared/models/user';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,12 +13,11 @@ import { AuthUser } from 'src/app/shared/models/user';
 })
 export class SignInComponent implements OnInit, OnDestroy {
   private ui!: firebaseui.auth.AuthUI;
-  private _isAuthenticated: boolean = false;
 
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
-    private cookieService: CookieService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -47,16 +45,7 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.ui.delete();
   }
 
-  get isAuthenticated() {
-    return this._isAuthenticated;
-  }
-
-  private onSignInSuccessful(result: any) {
-    this._isAuthenticated = true;
-    const authUser = result.user as AuthUser;
-    this.cookieService.set('authUser', JSON.stringify(authUser));
-    this.router.navigate(['/dashboard']);
-
+  private onSignInSuccessful(result: firebase.auth.Auth) {
     return false;
   }
 }

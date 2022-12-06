@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'mix', component: MixComponent, canActivate: [AuthGuard]},
   { path: 'unauthorized', component: UnauthorizedComponent},
-  { path: 'invoice', loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule) }
+  { path: 'invoice', loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule), canActivate: [AuthGuard] }
 ];
 
 @NgModule({

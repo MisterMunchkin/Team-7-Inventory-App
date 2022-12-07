@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Invoice, Item } from 'src/app/shared/models/invoice';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import cloneDeep from 'lodash.clonedeep';
 
 @Component({
@@ -9,10 +9,10 @@ import cloneDeep from 'lodash.clonedeep';
   styleUrls: ['./invoice-form-dialog.component.scss']
 })
 export class InvoiceFormDialogComponent implements OnInit {
-  invoiceForm!: FormGroup;
+  invoiceForm!: UntypedFormGroup;
   invoiceData: Invoice;
 
-  itemsFormArray: FormArray = new FormArray([], [Validators.minLength(1)]);
+  itemsFormArray: UntypedFormArray = new UntypedFormArray([], [Validators.minLength(1)]);
   items: Array<Item> = [];
 
   cleanDataForm: Invoice = {
@@ -50,28 +50,28 @@ export class InvoiceFormDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.invoiceForm = new FormGroup({
-      dueDate: new FormControl(new Date(this.invoiceData.dueDate), [Validators.required]),
-      billTo: new FormControl(this.invoiceData.billTo, [Validators.required]),
-      shipTo: new FormControl(this.invoiceData.shipTo),
-      shippingAddress: new FormControl(this.invoiceData.shippingAddress),
+    this.invoiceForm = new UntypedFormGroup({
+      dueDate: new UntypedFormControl(new Date(this.invoiceData.dueDate), [Validators.required]),
+      billTo: new UntypedFormControl(this.invoiceData.billTo, [Validators.required]),
+      shipTo: new UntypedFormControl(this.invoiceData.shipTo),
+      shippingAddress: new UntypedFormControl(this.invoiceData.shippingAddress),
       items: this.itemsFormArray,
-      subTotal: new FormControl({value: this.invoiceData.subTotal, disabled: true}, [Validators.required, Validators.min(1)]),
-      discount: new FormControl(this.invoiceData.discount, [Validators.min(0)]),
-      deliveryFee: new FormControl(this.invoiceData.deliveryFee, [Validators.min(0)]),
-      total: new FormControl({value: this.invoiceData.total, disabled: true}, [Validators.min(0)]),
-      notes: new FormControl(this.invoiceData.notes),
-      terms: new FormControl(this.invoiceData.terms)
+      subTotal: new UntypedFormControl({value: this.invoiceData.subTotal, disabled: true}, [Validators.required, Validators.min(1)]),
+      discount: new UntypedFormControl(this.invoiceData.discount, [Validators.min(0)]),
+      deliveryFee: new UntypedFormControl(this.invoiceData.deliveryFee, [Validators.min(0)]),
+      total: new UntypedFormControl({value: this.invoiceData.total, disabled: true}, [Validators.min(0)]),
+      notes: new UntypedFormControl(this.invoiceData.notes),
+      terms: new UntypedFormControl(this.invoiceData.terms)
     });
   }
 
   addItem() {
-    const group = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      description: new FormControl(''),
-      quantity: new FormControl('', [Validators.required, Validators.min(1)]),
-      pricePerItem: new FormControl('', [Validators.required, Validators.min(1)]),
-      amount: new FormControl({value: '', disabled: true}, [Validators.required, Validators.min(1)])
+    const group = new UntypedFormGroup({
+      name: new UntypedFormControl('', [Validators.required]),
+      description: new UntypedFormControl(''),
+      quantity: new UntypedFormControl('', [Validators.required, Validators.min(1)]),
+      pricePerItem: new UntypedFormControl('', [Validators.required, Validators.min(1)]),
+      amount: new UntypedFormControl({value: '', disabled: true}, [Validators.required, Validators.min(1)])
     });
 
     this.itemsFormArray.push(group);
@@ -97,7 +97,7 @@ export class InvoiceFormDialogComponent implements OnInit {
     var subTotal = 0
 
     this.itemsFormArray.controls.forEach((item : AbstractControl) => {
-      var formGroup = item as FormGroup;
+      var formGroup = item as UntypedFormGroup;
       subTotal += formGroup.controls["amount"].value || 0;
     });
 
@@ -126,12 +126,12 @@ export class InvoiceFormDialogComponent implements OnInit {
     const items = this.invoiceData.items;
 
     items.forEach(item => {
-      const group = new FormGroup({
-        name: new FormControl(item.name, [Validators.required]),
-        description: new FormControl(item.description),
-        quantity: new FormControl(item.quantity, [Validators.required, Validators.min(1)]),
-        pricePerItem: new FormControl(item.pricePerItem, [Validators.required, Validators.min(1)]),
-        amount: new FormControl({value: item.amount, disabled: true}, [Validators.required, Validators.min(1)])
+      const group = new UntypedFormGroup({
+        name: new UntypedFormControl(item.name, [Validators.required]),
+        description: new UntypedFormControl(item.description),
+        quantity: new UntypedFormControl(item.quantity, [Validators.required, Validators.min(1)]),
+        pricePerItem: new UntypedFormControl(item.pricePerItem, [Validators.required, Validators.min(1)]),
+        amount: new UntypedFormControl({value: item.amount, disabled: true}, [Validators.required, Validators.min(1)])
       });
 
       this.itemsFormArray.push(group);

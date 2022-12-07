@@ -109,5 +109,7 @@
       }
     }
   },
-  "defaultProject": "Team-7-Inventory-App"
+  "cli": {
+    "analytics": "ff0711c6-49f8-468c-a78c-e59135334486"
+  }
 }

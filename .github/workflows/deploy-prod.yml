@@ -1,0 +1,24 @@
+name: Deploy to Live Channel on Merge
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_live_website:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          node-version: '16.18.1'
+      - run: node server.js
+        env:
+          FIREBASE_DETAILS: '${{ secrets.FIREBASE_DETAILS }}'
+      - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_TEAM_7_5E36D }}'
+          channelId: live
+          projectId: team-7-5e36d

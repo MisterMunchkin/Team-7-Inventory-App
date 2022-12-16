@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,11 @@ export class AuthService {
     'team.se7en.org@gmail.com'
   ]
 
-  private _user: firebase.default.User | null = null;
-  get user() : firebase.default.User | null {
+  private _user: firebase.User | null = null;
+  get user() : firebase.User | null {
     return this._user;
   }
-  set user(value: firebase.default.User | null) {
+  set user(value: firebase.User | null) {
     this._user = value;
   }
 
@@ -41,5 +42,13 @@ export class AuthService {
         }
       }
     });
+  }
+
+  GoogleAuthLogin() {
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+
+  Logout() {
+    this.auth.signOut();
   }
 }

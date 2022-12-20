@@ -1,9 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
-import firebase from 'firebase/compat/app';
+import { Component } from '@angular/core';
 import 'firebase/compat/auth';
-import * as firebaseui from 'firebaseui';
 import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
@@ -11,19 +7,12 @@ import { AuthService } from '../../shared/services/auth/auth.service';
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent implements OnInit {
-  private ui!: firebaseui.auth.AuthUI;
-
+export class SignInComponent {
   constructor(
-    private afAuth: AngularFireAuth,
-    private router: Router,
     private authService: AuthService
   ) { }
 
-  ngOnInit(): void {
-  }
-
   signIn() {
-    this.authService.GoogleAuthLogin();
+    this.authService.googleAuthLogin();
   }
 }

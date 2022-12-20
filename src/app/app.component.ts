@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,15 @@ export class AppComponent {
   title = 'Team-7-Inventory-App';
   isMenuOpen: boolean = false;
 
+  constructor(
+  private authService: AuthService) {
+  }
+
   onSidenavClick(): void {
     this.isMenuOpen = false;
+  }
+
+  signOut() {
+    this.authService.logout();
   }
 }

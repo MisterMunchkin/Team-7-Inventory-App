@@ -17,6 +17,7 @@
   font-weight: bold;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .page-container header .menu-button {
   margin-right: 24px;
@@ -41,4 +42,13 @@
 }
 .page-container .sidenav-container main {
   padding: 18px 24px;
+}
+
+#sign-out-btn {
+  height: 18px;
+  width: 18px;
+  img {
+    height: 18px;
+    width: 18px;
+  }
 }

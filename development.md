@@ -13,6 +13,7 @@ This deploys to the preview channel of our Firebase hosting. This should be trig
 This deploys to the live channel of our Firebase hosting. This should be triggered during pull request merge to master.
 
 # Current Issues
-We have an issue where `environment.prod.ts` does not exist in our repo. This is by design as the prod variables should not be part of our public repository. So now we have to find out how to add our prod variables during prod build time.
+Issue where new user subscription in app.component.ts is only triggered once.
+When the subscribe in auth.service.ts is triggered and updates user, it does not get updated on the subscription in app.components.
 
-In Netlify, this is done with using env.process to find the environment variables that are kept in the Netlify settings. I don't know if this is possible with github yet. If only we could use Netlify to deploy our hosting to Firebase.
+Tried setting AuthService in providers for root but not working.

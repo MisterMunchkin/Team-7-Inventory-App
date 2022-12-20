@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,8 @@ export class AuthService {
 
   constructor(private auth: AngularFireAuth, private router: Router) {
     this.auth.authState.subscribe(user => {
-      this.user = user;
+      this._user = user;
+
       if (this._user) {
         //signed in
         if (this.authorizedUsers.includes(this._user.email as string) === true) {
@@ -44,11 +46,11 @@ export class AuthService {
     });
   }
 
-  GoogleAuthLogin() {
+  googleAuthLogin() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
-  Logout() {
+  logout() {
     this.auth.signOut();
   }
 }
